@@ -15,17 +15,23 @@ const isAuthenticated = require('../middleware/auth');
 router.get('/', gamesController.getAllGames);
 
 router.get('/:id', gamesController.getSingleGame);
-/**
- * @swagger
- * /games:
- *   post:
- *     summary: Create a new game
- *     requestBody:
- *       required: true
- *     responses:
- *       201:
- *         description: Game created
- */
+/* 
+  #swagger.tags = ['Games']
+  #swagger.summary = 'Create a new game'
+  #swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    schema: {
+      title: 'Sekiro',
+      genre: 'Action',
+      platform: 'PC',
+      developer: 'FromSoftware',
+      releaseYear: 2019,
+      rating: 10,
+      multiplayer: false
+    }
+  }
+*/
 router.post('/', isAuthenticated, gamesController.createGame);
 /**
  * @swagger
