@@ -6,9 +6,9 @@ const doc = {
     description: 'API documentation for Video Games project'
   },
 
-  host: 'localhost:3000',
+  host: 'cse-341-project2-ilsl.onrender.com',
 
-  schemes: ['http']
+  schemes: ['https']
 };
 
 const outputFile = './swagger-output.json';
