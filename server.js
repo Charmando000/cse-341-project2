@@ -8,9 +8,31 @@ const connectDB = require('./db/connect');
 
 const gamesRoutes = require('./routes/games');
 const developersRoutes = require('./routes/developers');
-const port = process.env.PORT || 3000;
+const authRoutes = require('./routes/auth');
+const session = require('express-session');
+const cors = require('cors');
+const passport = require('passport');
 
+require('./config/passport');
+const port = process.env.PORT || 3000;
+app.use(
+  cors({
+    origin: true,
+    credentials: true
+  })
+);
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
+app.use('/auth', authRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/games', gamesRoutes);
 app.use('/developers', developersRoutes);

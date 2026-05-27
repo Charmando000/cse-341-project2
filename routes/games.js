@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const gamesController = require('../controllers/games');
+const isAuthenticated = require('../middleware/auth');
 
 /**
  * @swagger
@@ -25,7 +26,7 @@ router.get('/:id', gamesController.getSingleGame);
  *       201:
  *         description: Game created
  */
-router.post('/', gamesController.createGame);
+router.post('/', isAuthenticated, gamesController.createGame);
 /**
  * @swagger
  * /games/{id}:
@@ -39,7 +40,7 @@ router.post('/', gamesController.createGame);
  *       200:
  *         description: Game updated
  */
-router.put('/:id', gamesController.updateGame);
+router.put('/:id', isAuthenticated, gamesController.updateGame);
 /**
  * @swagger
  * /games/{id}:
@@ -53,6 +54,6 @@ router.put('/:id', gamesController.updateGame);
  *       200:
  *         description: Game deleted
  */
-router.delete('/:id', gamesController.deleteGame);
+router.delete('/:id', isAuthenticated, gamesController.deleteGame);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const isAuthenticated = require('../middleware/auth');
 
 const developersController = require('../controllers/developers');
 /**
@@ -11,9 +12,9 @@ const developersController = require('../controllers/developers');
  *       200:
  *         description: Success
  */
-router.get('/', developersController.getAllDevelopers);
+router.get('/', isAuthenticated, developersController.getAllDevelopers);
 
-router.get('/:id', developersController.getSingleDeveloper);
+router.get('/:id', isAuthenticated, developersController.getSingleDeveloper);
 /**
  * @swagger
  * /developers:
@@ -25,7 +26,7 @@ router.get('/:id', developersController.getSingleDeveloper);
  *       201:
  *         description: Developer created
  */
-router.post('/', developersController.createDeveloper);
+router.post('/', isAuthenticated, developersController.createDeveloper);
 /**
  * @swagger
  * /developers/{id}:
@@ -39,7 +40,7 @@ router.post('/', developersController.createDeveloper);
  *       200:
  *         description: Developer updated
  */
-router.put('/:id', developersController.updateDeveloper);
+router.put('/:id', isAuthenticated, developersController.updateDeveloper);
 /**
  * @swagger
  * /developers/{id}:
@@ -53,6 +54,6 @@ router.put('/:id', developersController.updateDeveloper);
  *       200:
  *         description: Developer deleted
  */
-router.delete('/:id', developersController.deleteDeveloper);
+router.delete('/:id', isAuthenticated, developersController.deleteDeveloper);
 
 module.exports = router;
