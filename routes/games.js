@@ -33,19 +33,23 @@ router.get('/:id', gamesController.getSingleGame);
   }
 */
 router.post('/', isAuthenticated, gamesController.createGame);
-/**
- * @swagger
- * /games/{id}:
- *   put:
- *     summary: Update a game
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *     responses:
- *       200:
- *         description: Game updated
- */
+/* 
+  #swagger.tags = ['Games']
+  #swagger.summary = 'Update a game'
+  #swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    schema: {
+      title: 'Sekiro',
+      genre: 'Action',
+      platform: 'PC',
+      developer: 'FromSoftware',
+      releaseYear: 2019,
+      rating: 10,
+      multiplayer: false
+    }
+  }
+*/
 router.put('/:id', isAuthenticated, gamesController.updateGame);
 /**
  * @swagger
