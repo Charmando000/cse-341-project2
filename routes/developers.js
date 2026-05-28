@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const developersController = require('../controllers/developers');
 const isAuthenticated = require('../middleware/auth');
 
-const developersController = require('../controllers/developers');
 /**
  * @swagger
  * /developers:
@@ -12,34 +12,40 @@ const developersController = require('../controllers/developers');
  *       200:
  *         description: Success
  */
-router.get('/', isAuthenticated, developersController.getAllDevelopers);
+router.get('/', developersController.getAllDevelopers);
 
-router.get('/:id', isAuthenticated, developersController.getSingleDeveloper);
-/**
- * @swagger
- * /developers:
- *   post:
- *     summary: Create a new developer
- *     requestBody:
- *       required: true
- *     responses:
- *       201:
- *         description: Developer created
- */
+router.get('/:id', developersController.getSingleDeveloper);
+/* 
+  #swagger.tags = ['Developers']
+  #swagger.summary = 'Create a new developer'
+  #swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    schema: {
+      name: 'FromSoftware',
+      founded: 1986,
+      headquarters: 'Japan',
+      website: 'https://www.fromsoftware.jp/en/',
+      games: ['Dark Souls', 'Sekiro', 'Elden Ring']
+    }
+  }
+*/
 router.post('/', isAuthenticated, developersController.createDeveloper);
-/**
- * @swagger
- * /developers/{id}:
- *   put:
- *     summary: Update a developer
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *     responses:
- *       200:
- *         description: Developer updated
- */
+/* 
+  #swagger.tags = ['Developers']
+  #swagger.summary = 'Update a developer'
+  #swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    schema: {
+        name: 'FromSoftware',
+        founded: 1986,
+        headquarters: 'Japan',
+        website: 'https://www.fromsoftware.jp/en/',
+        games: ['Dark Souls', 'Sekiro', 'Elden Ring']
+    }
+  }
+*/
 router.put('/:id', isAuthenticated, developersController.updateDeveloper);
 /**
  * @swagger
