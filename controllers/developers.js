@@ -4,10 +4,7 @@ const getAllDevelopers = async (req, res) => {
   try {
     const developers = await Developer.find();
 
-    res.status(200).json({
-    message: 'developers route works',
-    developers
-    });
+    res.status(200).json(developers);
   } catch (error) {
     res.status(500).json({
       message: error.message
